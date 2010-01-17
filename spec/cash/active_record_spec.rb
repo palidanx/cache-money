@@ -123,7 +123,7 @@ module Cash
             Story.find(:first, :conditions => []).should == story
           end
         end
-        
+
         describe "#find(:first, :conditions => '...')" do
           it "uses the active record instance to typecast values extracted from the conditions" do
             story1 = Story.create! :title => 'a story', :published => true
@@ -193,6 +193,19 @@ module Cash
           $memcache.flush_all
           Story.find(story1.id, story2.id).should == [story1, story2]
         end
+      end
+    end
+
+    describe 'loading' do
+      it "should be able to create a record for an ar subclass that was loaded before cache money" do
+        $debug = true
+        session = ActiveRecord::SessionStore::Session.new
+        session.session_id = "12345"
+        session.data = "foobarbaz"
+
+        lambda {
+          session.save!
+        }.should_not raise_error
       end
     end
   end
