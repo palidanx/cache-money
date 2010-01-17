@@ -1,6 +1,5 @@
 RAILS_ROOT = "#{File.dirname(__FILE__)}"
 
-require 'rubygems'
 require 'spec/rake/spectask'
 
 require 'config/environment'
