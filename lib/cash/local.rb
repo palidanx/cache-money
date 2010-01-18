@@ -13,6 +13,8 @@ module Cash
       @remote_cache = original_cache
     end
 
+    private
+
     def method_missing(method, *args, &block)
       @remote_cache.send(method, *args, &block)
     end
@@ -51,6 +53,8 @@ module Cash
       @remote_cache.delete(key, *options)
       @local_cache.delete(key)
     end
+
+    private
 
     def method_missing(method, *args, &block)
       @remote_cache.send(method, *args, &block)
